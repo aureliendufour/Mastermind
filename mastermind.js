@@ -76,9 +76,20 @@ function start(){
   premiereCaseDeChaqueLigneBis = 0;
   $(".choix").hide();
 
+  /* Permet l'affichage de la couleur choisie sur la case voulu */
+  $("td").on('click',function(){
+    $(this).css("background-color",""+couleurBouton+"");
+  });
+
   $(":button").on('click',function(){
       disable();//Désactive la partie du plateau réponse
-      couleurBouton = $(this).css("backgroundColor");//Récupère la couleur du bouton selectionné
+
+      /* Permet la correction d'un bug de couleur permettant d'obtenir la couleur "grise" */
+      if ($(this).val() != "valider" && $(this).val() != "triche"
+          && $(this).val() != "show" && $(this).val() != "hide"){
+        couleurBouton = $(this).css("backgroundColor");//Récupère la couleur du bouton selectionné
+      }
+
 
       if ($(this).val() == "restart"){
         location.reload();
@@ -122,9 +133,9 @@ function start(){
 
         if (validation == 4) {
           for (var j = 0; j < 4 ; j++) {
-            $("td").eq(j+premiereCaseDeChaqueLigneBis+10).show();
-            $("td").eq(j+premiereCaseDeChaqueLigneBis+14).show();//Obligé sinon bug !
-            $("td").eq(j+premiereCaseDeChaqueLigneBis+16).show();
+            $("td").eq(j+premiereCaseDeChaqueLigneBis+newPlateau[1]).show();
+            $("td").eq(j+premiereCaseDeChaqueLigneBis+newPlateau[1]+4).show();//Obligé sinon bug !
+            $("td").eq(j+premiereCaseDeChaqueLigneBis+newPlateau[1]+6).show();
           }
           premiereCaseDeChaqueLigneBis+=newPlateau[1];
           verification();
@@ -132,9 +143,6 @@ function start(){
       }
 
   });
-
-  $("td").on('click',function(){
-    $(this).css("background-color",""+couleurBouton+"");});
 }
 
 function verification(){
@@ -144,7 +152,7 @@ function verification(){
   /* Couleur à deviner */
   aDeviner();
 
-  /* Calcule des bonnes réponces pour chaque couleur posé */
+  /* Calcule des bonnes réponses pour chaque couleurs posées */
   if ($("td").eq(0+premiereCaseDeChaqueLigne).css("backgroundColor") === $("td").eq(emplacementCouleurAdeviner[0]).css("backgroundColor")){
       reponseRouge.push(0+premiereCaseDeChaqueLigne);
       couleurAdeviner.splice($.inArray($("td").eq(0+premiereCaseDeChaqueLigne).css("backgroundColor"),couleurAdeviner),1);
@@ -166,7 +174,7 @@ function verification(){
       couleurAdeviner.splice($.inArray($("td").eq(3+premiereCaseDeChaqueLigne).css("backgroundColor"),couleurAdeviner),1);
   }
 
-  /* Calcule des bonnes réponces approximatives (Si le joueur à posé une couleur mais à la mauvaise place */
+  /* Calcule des bonnes réponses approximatives (Si le joueur a posé une couleur mais à la mauvaise place */
   if ($.inArray($("td").eq(0+premiereCaseDeChaqueLigne).css("backgroundColor"),couleurAdeviner) != -1){
     reponseBlanc.push(0+premiereCaseDeChaqueLigne);
     couleurAdeviner.splice($.inArray($("td").eq(0+premiereCaseDeChaqueLigne).css("backgroundColor"),couleurAdeviner),1);
@@ -210,7 +218,7 @@ function verification(){
   nbEssai++;
 
   if (reponseRouge.length == 4) {
-    if (nbEssai != 11 ) {
+    if (nbEssai != newPlateau[0]-1 ) {
       $(".choix").show();
       $(".resultat").text("Bravo !Vous avez trouvé en "+nbEssai+" essai(s)");
       $(".text").hide();
@@ -225,7 +233,7 @@ function verification(){
   }
 
   if (reponseRouge.length != 4) {
-    if (nbEssai == 11 ) {
+    if (nbEssai == newPlateau[0]-1 ) {
       $(".choix").show();
       $(".resultat").text("Vous avez perdu :'(");
       $(".text").hide();
