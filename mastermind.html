@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Mastermind</title>
+  </head>
+  <body>
+    <div>
+      <table class="plateau">
+      </table>
+
+      <div class="bouton">
+        <input type="button" value="rouge" style="background-color:red">
+        <input type="button" value="jaune" style="background-color:yellow">
+        <input type="button" value="vert"  style="background-color:green">
+        <input type="button" value="bleu"  style="background-color:blue">
+        <input type="button" value="orange" style="background-color:orange">
+        <input type="button" value="blanc" style="background-color:white">
+        <input type="button" value="violet" style="background-color:purple">
+        <input type="button" value="fuchsia" style="background-color:fuchsia">
+      </div>
+
+      <input type="button" value="valider">
+      <input type="button" value="restart">
+      <input type="button" value="triche">
+      <input type="button" value="show" style="display: none">
+      <input type="button" value="hide" style="display: none">
+
+</div>
+
+<div class="text">
+Blanc &nbsp;: La couleur éxiste mais n'est pas à la bonne place </br>
+Noir &nbsp;&nbsp;&nbsp;: La couleur n'éxiste pas </br>
+Rouge : La couleur est à la bonne place </br>
+</div>
+
+</br>
+<table class="choix">
+  <tr>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+  <tr>
+</table>
+
+<div class="resultat">
+</div>
+
+  </body>
+</html>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+<script type="text/javascript" src="mastermind.js"></script>
